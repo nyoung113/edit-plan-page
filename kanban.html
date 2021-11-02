@@ -26,9 +26,9 @@
         </div>
     </header>
     <main class="main-content">
-        <!--
+
         <div class="recommandation">
-            <button type="button">권역 선택</button>
+            <button type="button" class="region-select">권역 선택</button>
             <div class="recommandation__categories">
                 <div>관광</div>
                 <div>식당</div>
@@ -39,8 +39,8 @@
                 <li>
                     <img src="", alt="추천 장소">
                         <div>
-                            <span>관광지명</span> 
-                            <button>더보기</button>
+                            <span>관광지명</span>  <!--data 집어넣기-->
+                            <button class="abc">더보기</button>
                             <p>대충설명</p>
                         </div>
                 </li>
@@ -48,41 +48,37 @@
                     <img src="", alt="추천 장소">
                         <div>
                             <span>관광지명</span>
-                            <button>더보기</button>
+                            <button class="abc">더보기</button>
                             <p>대충설명</p>
                         </div>
                 </li>  
             </ul>
         </div>
-        -->
        
         
         <!--place api 사용한 장소 검색 리스트(키워드 검색)-->
-        <!--
+
         <div class="search-list">
             <form id="search-form">
                 <input type="text", name="search-input", placeholder="검색어를 입력하세요", required>
-                <input type="submit", value = "검색">
+                <input type="submit", value = "검색" class="search-btn">
             </form>
-            <ul class = "search-list__ul">
-                
+            <ul>
                 <li>
-                    <span>봄날</span>
-                    <button>더보기</button>
+                    <span>봄날</span><button class="abc">더보기</button>
                     <p>제주특별자치도 제주시 애월읍 애월로 27-1</p>
                 </li>
-
+                <li>
+                    <span>봄날</span><button class="abc">더보기</button>
+                    <p>제주특별자치도 제주시 애월읍 애월로 27-1</p>
+                </li>
             </ul>
         </div>
-        -->
         
-        <!--
-        <div>
-            <div id="map" class="map" style ="background: skyblue"></div>
+        <div class="map">
+            <div id="map"></div>
         </div>
-        -->
 
-        <!--
         <div class="kanban">
             <!--
             <div class="kanban__column">
@@ -93,42 +89,37 @@
                 </div>
             <button class ="kanban__add-item" type='button'>+ Add</button>
             </div>
-                
+                -->
         </div>
-        -->
-         
-        <div class="chat">
-            <div class="chat-box">
-            <!--
+                
+        <!--chatting으로 모든 챗박스 묶고, 추가 클래스로 개별 스타일 부여-->
+        <div class="chatting" id="chatbox">
+            <div id="chatboxheader">
+            </div>
+            <div class="chat-box" draggable="false">
                 <div class="chat enter">
                     오정환님이 입장하셨습니다.
                 </div>
-
                 <div class="chat outgoing">
                     오정환: ㅎㅇㅎㅇ
                 </div>
-
                 <div class="chat incoming">
                     나 : ㅎㅇㅎㅇ
                 </div>
-
                 <div class="chat exit">
                     오정환님이 퇴장하셨습니다.
                 </div>
-            -->
             </div>
             <div>
                 <form>
-                    <input type="text" name="chat-input", placeholder="메시지 전송하기", required>
-                    <input type="submit", value="전송">
+                    <input type="text" name="chatting-input", placeholder="메시지 전송하기", required>
+                    <input type="submit", value="전송" class="send-mesage">
                 </form>
             </div>
         </div>
-        
     </main>
     
 </body>
-<!--<script type="text/javascript" src="SearchList.js"></script>-->
-<script type="text/javascript" src="Message.js"></script>
-
+<script type="text/javascript" src="Kanban.js"></script>
+<script type="text/javascript" src="chat.js"></script>
 </html>

@@ -1,27 +1,123 @@
 .main-content {
-	display: flex;
-	flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  background-color: whitesmoke;
 }
 
-.recommandation-list {
-    display:flex;
-    flex-direction: column;
-    background-color: burlywood
+.recommandation {
+  display: flex;
+  flex-direction: column;
+  background-color: burlywood;
+  width: 20%;
+  height: 95%;
+}
+
+.region-select {
+  background-color: violet;
+  text-align: center;
+  border: none;
+  height: 5vh;
+}
+
+.recommandation__categories {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.recommandation__categories div {
+  text-align: center;
+  width: 100%;
+  height: 5vh;
+  line-height: 5vh;
+  background-color: rgb(174, 174, 255);
+}
+
+.recommandation__categories div:hover {
+  background-color: white;
+}
+
+.recommandation__categories div:target {
+  background-color: red;
+}
+
+.recommandation__list {
+  display: flex;
+  flex-direction: column;
+  padding: 0 5px;
+  gap: 10px;
+  overflow: scroll;
+}
+
+.recommandation__list::-webkit-scrollbar {
+  display: none;
+}
+
+.recommandation__list li {
+  display: flex;
+  background-color: yellowgreen;
+  gap: 3px;
+}
+
+.recommandation__list li img {
+  width: 40%;
+  height: 100%;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.recommandation__list li div {
+  width: 100%;
+  padding: 10px 20px;
 }
 
 .search-list {
-    background-color: coral;
+  display: flex;
+  flex-direction: column;
+  background-color: coral;
+  width: 20%;
+  height: 95%;
+}
+
+input {
+  padding: 10px;
+  width: 60%;
+  margin-top: 10px;
+  margin-left: 5px;
+}
+
+.search-btn {
+  width: 30%;
+  margin-left: 0;
+}
+
+.search-list ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px 0;
+  padding: 10px 5px;
+  background-color: turquoise;
+}
+
+.search-list ul li {
+  padding: 10px 5px;
+  background-color: whitesmoke;
 }
 
 .map {
-    width:100px;
-    height:100px;
-    background-color:brown;
+  background-color: brown;
+  width: 40%;
+  height: 95%;
 }
 
 .abc {
-    float: right;
-    margin-right: 20px;
+  float: right;
+  background-color: yellow !important;
+  border: none;
+  margin-top: 5px;
 }

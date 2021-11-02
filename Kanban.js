@@ -46,6 +46,9 @@ const fakeItems = [
 
 let fakeId = 7;
 
+
+
+
 class DropZone {
     static createDropZone(){
         
@@ -171,6 +174,7 @@ class Item {
         this.elements.title.textContent = title;
         this.elements.items.appendChild(topDropZone);
 
+        //작동 xx
         this.elements.addItem.addEventListener("click", () => {
             
             const newItem = {id : fakeId++, content : ""};
@@ -199,7 +203,7 @@ class Item {
 			<div class="kanban__column">
 				<div class="kanban__column-title"></div>
 				<div class="kanban__column-items"></div>
-				<button class="kanban__add-item" type="button">+ Add</button>
+				<bdutton class="kanban__add-item" type="button">+ Add</button>
 			</div>
 		`).children[0];
 	}
@@ -210,11 +214,6 @@ class Item {
         this.elements.items.appendChild(item.elements.root);
     }
 }
-
-
-
-
-
 
  class Kanban {
 	constructor(root) {
