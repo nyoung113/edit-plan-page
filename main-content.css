@@ -1,0 +1,27 @@
+.main-content {
+	display: flex;
+	flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.recommandation-list {
+    display:flex;
+    flex-direction: column;
+    background-color: burlywood
+}
+
+.search-list {
+    background-color: coral;
+}
+
+.map {
+    width:100px;
+    height:100px;
+    background-color:brown;
+}
+
+.abc {
+    float: right;
+    margin-right: 20px;
+}

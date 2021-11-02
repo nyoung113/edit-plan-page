@@ -1,0 +1,38 @@
+body {
+    width: 100vw;
+    height: 100vh;
+}
+
+.container {
+    display: grid;
+    grid-template-areas: 
+    "header"
+    "main";
+    grid-template-rows: 70px calc( 100% - 70px );
+}
+
+header {
+    grid-area: header;
+}
+
+main {
+    grid-area: main;
+}
+
+* {
+    list-style: none;
+    text-decoration: none;
+    font-family: "Gowun Dodum", sans-serif;
+}
+
+.recommandation__categories div {
+    background-color: rgb(174, 174, 255);
+}
+
+.recommandation__categories div:hover{
+    background-color: white;
+}
+
+.recommandation__categories div:active {
+    background-color: red;
+}
