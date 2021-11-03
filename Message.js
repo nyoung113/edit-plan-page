@@ -51,6 +51,8 @@ class ChattingList {
     }
 }
 
+const chattingList = new ChattingList(document.querySelector(".chat-box"));
+
 //chattng popup click
 const chattingPopup = document.querySelector("#popup");
 
@@ -61,7 +63,7 @@ function showChatBox(){
     chattingPopup.style.display = "none";
 }
 
-document.querySelector(".chat-box button").addEventListener("click", showChatPopup);
+document.querySelector(".chat button").addEventListener("click", showChatPopup);
 function showChatPopup(event){
     event.preventDefault();
     chattingPopup.style.display = "flex";
