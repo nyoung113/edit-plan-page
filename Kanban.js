@@ -96,7 +96,7 @@ const fakeItems2 = [
     date : new Date("2021-05-04"),
     place : [
         {   
-            _id : "5bf142459b72e12b2b1b2c1",
+            _id : "5bf142459b72e12b2b1b2c11",
             name : "place 1",
             road_adr : "도로명 주소1",
             x : "126.52001020252465",
@@ -104,7 +104,7 @@ const fakeItems2 = [
             map_link : ""
         },
         {   
-            _id : "5bf142459b72e12b2b1b2c2",
+            _id : "5bf142459b72e12b2b1b2c12",
             name : "place 2",
             road_adr : "도로명 주소2",
             x : "126.52001020252465",
@@ -117,7 +117,7 @@ const fakeItems2 = [
         date : new Date("2021-05-05"),
         place : [
             {   
-                _id : "5bf142459b72e12b2b1b2c3",
+                _id : "5bf142459b72e12b2b1b2c13",
                 name : "place 3",
                 road_adr : "도로명 주소3",
                 x : "126.52001020252465",
@@ -125,7 +125,7 @@ const fakeItems2 = [
                 map_link : ""
             },
             {   
-                _id : "5bf142459b72e12b2b1b2c4",
+                _id : "5bf142459b72e12b2b1b2c14",
                 name : "place 4",
                 road_adr : "도로명 주소4",
                 x : "126.52001020252465",
@@ -138,7 +138,7 @@ const fakeItems2 = [
             date : new Date("2021-05-06"),
             place : [
                 {   
-                    _id : "5bf142459b72e12b2b1b2c5",
+                    _id : "5bf142459b72e12b2b1b2c15",
                     name : "place 5",
                     road_adr : "도로명 주소5",
                     x : "126.52001020252465",
@@ -146,7 +146,7 @@ const fakeItems2 = [
                     map_link : ""
                 },
                 {   
-                    _id : "5bf142459b72e12b2b1b26",
+                    _id : "5bf142459b72e12b2b1b2c16",
                     name : "place 6",
                     road_adr : "도로명 주소6",
                     x : "126.52001020252465",
@@ -156,9 +156,9 @@ const fakeItems2 = [
         ]}
 ]
 
+
 class DropZone {
     static createDropZone(){
-
 		const range = document.createRange();
 		range.selectNode(document.body);
 		const dropZone = range.createContextualFragment(`
@@ -176,32 +176,58 @@ class DropZone {
         });
         //***********
 
+        let droppedItemElement;
         dropZone.addEventListener("drop", (event) => {
+            const idReg = new RegExp("[0-9a-f]{24}");
             event.preventDefault();
             dropZone.classList.remove("kanban__dropzone--active");
+            console.log(typeof(event.dataTransfer.getData("text/plain")));
+        
+            // 새로운 item 추가됐을 때
+            if(!idReg.test(event.dataTransfer.getData("text/plain"))){
+                const newPlace = JSON.parse(event.dataTransfer.getData("text/plain"));
+                console.log(newPlace);
+                // DB에서 place item으로 부여해준다*************
+                //addPlaceToKanbanList(id, name, road_adr, x, y, map_link);
+                //진짜 아이디 넣어 주면 됨
+                const newItem = this.addPlaceToKanbanList("507f191e810c19729de860ab", newPlace.name, newPlace.road_adr, newPlace.x, newPlace.y, newPlace.map_link);
+                //addPlaceToKanbanList();
+                droppedItemElement = newItem.elements.root;
+            }
+            else{
+            const itemId = event.dataTransfer.getData("text/plain");
+            droppedItemElement = document.querySelector(`[data-id="${itemId}"]`);
+            console.log(droppedItemElement);
+            }
 
             const columnElement = dropZone.closest(".kanban__column");
-            //const columnId = columnElement.dataset.id;
+            const columnId = columnElement.dataset.id;
 
+            console.log("columnElement :", columnElement);
+            console.log("columnId :", columnId);
             const dropZonesInColumn = Array.from(columnElement.querySelectorAll(".kanban__dropzone"));
             const droppedIndex = dropZonesInColumn.indexOf(dropZone);
             console.log(droppedIndex);
 
-            const itemId = event.dataTransfer.getData("text/plain");
-            const droppedItemElement = document.querySelector(`[data-id="${itemId}"]`);
             const insertAfter = dropZone.parentElement.classList.contains("kanban__item") ? dropZone.parentElement : dropZone;
 
             if(droppedItemElement.contains(dropZone)){
                 return;
             }
 
-            //console.log(insertAfter);
+            console.log(insertAfter);
             insertAfter.after(droppedItemElement);
             //console.log(itemId);
             
             //소켓으로 보내준다 => ******DB에 저장
         })
         return dropZone;
+    }
+
+    //id를 가진 Item으로 만들어준다 
+    static addPlaceToKanbanList(id, name, road_adr, x, y, map_link){
+        const newItem = new Item(id, name, road_adr, x, y, map_link);
+        return newItem;
     }
 }
 

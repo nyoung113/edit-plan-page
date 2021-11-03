@@ -245,7 +245,7 @@ class PlaceItem {
         this.elements.root.dataset.x = x;
         this.elements.root.dataset.y = y;
         this.elements.moreButton.textContent = "더보기"
-        this.elements.moreButton.classList = "abc";
+        this.elements.moreButton.classList = "more-btn";
 
 
         this.elements.moreButton.addEventListener("click", (event) => {
@@ -257,22 +257,37 @@ class PlaceItem {
             //day plan 칸반보드에 들어가도록 해야 한다
             alert("hello");
         });
-
-    
+//place_name, road_address_name, place_url, x, y
+        this.elements.root.addEventListener("dragstart", event => {
+          console.log(JSON.stringify({
+            name : place_name, 
+            road_adr : road_address_name, 
+            x : x, 
+            y : y, 
+            map_link : place_url,
+          }));
+            event.dataTransfer.setData("text/plain", JSON.stringify({
+              name : place_name, 
+              road_adr : road_address_name, 
+              x : x, 
+              y : y, 
+              map_link : place_url,
+            }));
+        });
+  
     }   
 
     static createRoot(){
         const range = document.createRange();
         range.selectNode(document.body);
         return range.createContextualFragment(`
-        <li>
+        <li draggable="true">
             <span></span>
             <button></button>
             <p></p>
         </li>
         `).children[0];
     }
-
 }
 
 class SearchList {
