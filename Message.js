@@ -1,10 +1,10 @@
 // chatting message object 
-const chatForm = document.querySelector(".chat form");
+const chatForm = document.querySelector(".chatting form");
 chatForm.addEventListener("submit", sendChattingMessage);
 
 function sendChattingMessage(event){
     event.preventDefault();
-    const input = chatForm.querySelector("input");
+    const input = chatForm.querySelector("textarea");
     //console.log(input.value);
 
     chattingList.addMessage("", input.value, "incoming");
@@ -59,13 +59,13 @@ const chattingPopup = document.querySelector("#popup");
 chattingPopup.addEventListener("click", showChatBox);
 
 function showChatBox(){
-    document.querySelector(".chat").style.display = "flex";
+    document.querySelector(".chatting").style.display = "flex";
     chattingPopup.style.display = "none";
 }
 
-document.querySelector(".chat button").addEventListener("click", showChatPopup);
+document.querySelector(".chatting button").addEventListener("click", showChatPopup);
 function showChatPopup(event){
     event.preventDefault();
     chattingPopup.style.display = "flex";
-    document.querySelector(".chat").style.display = "none";
+    document.querySelector(".chatting").style.display = "none";
 }
