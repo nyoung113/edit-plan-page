@@ -45,6 +45,34 @@ const fakeItems = [
 ];
 
 let fakeId = 7;
+const dayPlanListColumsIds = 3;
+
+/*
+const totplanSchema = new mongoose.Schema({
+    title: {type: String, unique: true},
+    admin: {
+        _id: mongoose.Schema.Types.ObjectId,
+        name: String
+    },
+    participants: [{
+        _id: mongoose.Schema.Types.ObjectId,
+        name: String
+    }],
+    day_plan: [{
+       date: {type :Date, requried:true}, 
+       place: [{
+           name: String,
+           road_adr: String,
+           // img 추가할건지 판단
+           x : Number,
+           y : Number,
+           map_link: String
+       }]
+    }
+    ]
+})
+*/
+
 
 class DropZone {
     static createDropZone(){
@@ -100,10 +128,10 @@ class DropZone {
     }
 }
 
-
+// map marker도 여기 같이 넣자
 class Item {
     constructor(id, content){
-        const bottomDropZon = DropZone.createDropZone();
+        const bottomDropZone = DropZone.createDropZone();
 
         this.elements = {};
         this.elements.root = Item.createRoot();
@@ -113,7 +141,7 @@ class Item {
         this.elements.input.textContent = content;
         this.content = content;
 
-        this.elements.root.appendChild(bottomDropZon);
+        this.elements.root.appendChild(bottomDropZone);
 
         /*
         const onBlur = () => {
@@ -165,18 +193,20 @@ class Item {
 		this.elements.root = Column.createRoot();
 		this.elements.title = this.elements.root.querySelector(".kanban__column-title");
 		this.elements.items = this.elements.root.querySelector(".kanban__column-items");
-		this.elements.addItem = this.elements.root.querySelector(".kanban__add-item");
+		//this.elements.addItem = this.elements.root.querySelector(".kanban__add-item");
         
         this.elements.root.dataset.id = id;
         this.elements.title.textContent = title;
         this.elements.items.appendChild(topDropZone);
 
+        /*
         this.elements.addItem.addEventListener("click", () => {
             
             const newItem = {id : fakeId++, content : ""};
             this.renderItem(newItem);
         });
-        
+        */
+
         // 각 컬럼 마다 아이템 불러옴
 
         /*
@@ -199,7 +229,6 @@ class Item {
 			<div class="kanban__column">
 				<div class="kanban__column-title"></div>
 				<div class="kanban__column-items"></div>
-				<button class="kanban__add-item" type="button">+ Add</button>
 			</div>
 		`).children[0];
 	}
@@ -212,10 +241,6 @@ class Item {
 }
 
 
-
-
-
-
  class Kanban {
 	constructor(root) {
 		this.root = root;
@@ -226,8 +251,9 @@ class Item {
 			this.root.appendChild(columnView.elements.root);
 		});
 	}
-
-	static columns() {
+    // 서버에서 day  column 받아와야 함 
+	static columns(dayPlanListColumsIds) {
+        
 		return [
 			{
 				id: 1,

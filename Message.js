@@ -1,23 +1,19 @@
 // chatting message object 
 const chatForm = document.querySelector(".chat form");
-console.log(chatForm);
-
-
 chatForm.addEventListener("submit", sendChattingMessage);
 
 function sendChattingMessage(event){
     event.preventDefault();
     const input = chatForm.querySelector("input");
     //console.log(input.value);
-    // 서버로 메시지 보낸다
-    //
-    chattingList.addMessage("나", input.value);
+
+    chattingList.addMessage("", input.value, "incoming");
     input.value = "";
-    
 }
 
+// server side에서 전달 받을 때 사용할 함수
 function recieveChattingMessage(name, message){
-    chattingList.addMessage(name, message);
+    chattingList.addMessage(name, message, "outgoing");
 }
 
 class Message {
@@ -25,7 +21,14 @@ class Message {
         this.elements = {};
         this.elements.root = Message.createRoot();
         this.elements.root.classList.add(className);
-        this.elements.root = `${name} : ${message}`; 
+
+        if(className === "outgoing"){
+
+            this.elements.root = `${name} : ${message}`; 
+        }
+        else{
+            this.elements.root = `${message}`; 
+        }
     }
 
     static createRoot(){
@@ -46,15 +49,28 @@ class ChattingList {
         this.root = root;
     }
 
-    addMessage(name, message){
-        const className = "";
-        
+    addMessage(name, message, className){
         const msg = new Message(name, message, className);
         this.root.append(msg.elements.root);
     }
 }
-
+//chatting list 생성
 const chattingList = new ChattingList(document.querySelector(".chat-box"));
 
+//chattng popup click
+const chattingPopup = document.querySelector("#popup");
+chattingPopup.addEventListener("click", showChatBox);
+function showChatBox(){
+    document.querySelector(".chat").style.display = "flex";
+    chattingPopup.style.display = "none";
+}
 
+//chatting 최소화
+document.querySelector(".chat-box button").addEventListener("click", showChatPopup);
+
+function showChatPopup(event){
+    event.preventDefault();
+    chattingPopup.style.display = "flex";
+    document.querySelector(".chat").style.display = "none";
+}
 
