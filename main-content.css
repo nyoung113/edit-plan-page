@@ -109,7 +109,7 @@ input {
   background-color: whitesmoke;
 }
 
-.map {
+#map {
   background-color: brown;
   width: 40%;
   height: 95%;
