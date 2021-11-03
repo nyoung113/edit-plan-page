@@ -38,10 +38,6 @@ class Message {
 			<div class="chat"></div>
 		`).children[0];
     }
-
-    static returnMessage(){
-        
-    }
 }
 
 class ChattingList {
@@ -54,23 +50,20 @@ class ChattingList {
         this.root.append(msg.elements.root);
     }
 }
-//chatting list 생성
-const chattingList = new ChattingList(document.querySelector(".chat-box"));
 
 //chattng popup click
 const chattingPopup = document.querySelector("#popup");
+
 chattingPopup.addEventListener("click", showChatBox);
+
 function showChatBox(){
     document.querySelector(".chat").style.display = "flex";
     chattingPopup.style.display = "none";
 }
 
-//chatting 최소화
 document.querySelector(".chat-box button").addEventListener("click", showChatPopup);
-
 function showChatPopup(event){
     event.preventDefault();
     chattingPopup.style.display = "flex";
     document.querySelector(".chat").style.display = "none";
 }
-

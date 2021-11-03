@@ -74,6 +74,9 @@ const totplanSchema = new mongoose.Schema({
 */
 
 
+
+
+
 class DropZone {
     static createDropZone(){
         
@@ -200,6 +203,7 @@ class Item {
         this.elements.items.appendChild(topDropZone);
 
         /*
+        //작동 xx
         this.elements.addItem.addEventListener("click", () => {
             
             const newItem = {id : fakeId++, content : ""};
