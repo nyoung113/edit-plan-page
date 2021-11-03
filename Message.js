@@ -4,7 +4,8 @@ chatForm.addEventListener("submit", sendChattingMessage);
 
 function sendChattingMessage(event){
     event.preventDefault();
-    const input = chatForm.querySelector("input");
+    const input = chatForm.querySelector("textarea");
+    //console.log(input.value);
 
 
     chattingList.addMessage("", input.value, "outgoing");

@@ -1,16 +1,26 @@
+html::-webkit-scrollbar {
+  display: none;
+}
+
 /*칸반 css 시작*/
 
 .kanban {
   display: flex;
-  padding: 30px;
-  width: 250px;
-  background: #009578;
+  width: 20%;
+  height: 95%;
+  background: #c9c9c9;
   border-radius: 5px;
   flex-direction: column;
+  overflow: scroll;
+  max-height: 89vh;
+}
+
+.kanban::-webkit-scrollbar {
+  display: none;
 }
 
 .kanban__column {
-  margin: 20px;
+  margin: 15px;
 }
 
 .kanban__column-title {
