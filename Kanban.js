@@ -1,4 +1,4 @@
-
+/*
 const fakeItems = [    
     {
         items : [
@@ -44,8 +44,10 @@ const fakeItems = [
 
 ];
 
+
 let fakeId = 7;
 const dayPlanListColumsIds = 3;
+*/
 
 /*
 const totplanSchema = new mongoose.Schema({
@@ -59,7 +61,7 @@ const totplanSchema = new mongoose.Schema({
         name: String
     }],
     day_plan: [{
-       date: {type :Date, requried:true}, 
+       date: {type : Date, required : true}, 
        place: [{
            name: String,
            road_adr: String,
@@ -73,21 +75,97 @@ const totplanSchema = new mongoose.Schema({
 })
 */
 
+/*
+    day_plan: [{
+       date: {type :Date, required : true}, 
+       place: [{
+           name: String,
+           road_adr: String,
+           // img 추가할건지 판단
+           x : Number,
+           y : Number,
+           map_link: String
+       }]
+    }
+    ]
+*/
 
-
-
+const fakeItems2 = [
+    {
+    _id : "507f191e810c19729de860e1",
+    date : new Date("2021-05-04"),
+    place : [
+        {   
+            _id : "5bf142459b72e12b2b1b2c1",
+            name : "place 1",
+            road_adr : "도로명 주소1",
+            x : "126.52001020252465",
+            y : "33.48137202695348",
+            map_link : ""
+        },
+        {   
+            _id : "5bf142459b72e12b2b1b2c2",
+            name : "place 2",
+            road_adr : "도로명 주소2",
+            x : "126.52001020252465",
+            y : "33.48137202695348",
+            map_link : ""
+        }
+    ]},
+    {
+        _id : "507f191e810c19729de860e2",
+        date : new Date("2021-05-05"),
+        place : [
+            {   
+                _id : "5bf142459b72e12b2b1b2c3",
+                name : "place 3",
+                road_adr : "도로명 주소3",
+                x : "126.52001020252465",
+                y : "33.48137202695348",
+                map_link : ""
+            },
+            {   
+                _id : "5bf142459b72e12b2b1b2c4",
+                name : "place 4",
+                road_adr : "도로명 주소4",
+                x : "126.52001020252465",
+                y : "33.48137202695348",
+                map_link : ""
+            }
+        ]},
+        {
+            _id : "507f191e810c19729de860e3",
+            date : new Date("2021-05-06"),
+            place : [
+                {   
+                    _id : "5bf142459b72e12b2b1b2c5",
+                    name : "place 5",
+                    road_adr : "도로명 주소5",
+                    x : "126.52001020252465",
+                    y : "33.48137202695348",
+                    map_link : ""
+                },
+                {   
+                    _id : "5bf142459b72e12b2b1b26",
+                    name : "place 6",
+                    road_adr : "도로명 주소6",
+                    x : "126.52001020252465",
+                    y : "33.48137202695348",
+                    map_link : ""
+                }
+        ]}
+]
 
 class DropZone {
     static createDropZone(){
-        
+
 		const range = document.createRange();
-
 		range.selectNode(document.body);
-
 		const dropZone = range.createContextualFragment(`
 			<div class="kanban__dropzone"></div>
 		`).children[0];
 
+        //효과
 		dropZone.addEventListener("dragover", (event) => {
 			event.preventDefault();
 			dropZone.classList.add("kanban__dropzone--active");
@@ -96,23 +174,20 @@ class DropZone {
         dropZone.addEventListener("dragleave", (event) => {
             dropZone.classList.remove("kanban__dropzone--active");
         });
+        //***********
 
         dropZone.addEventListener("drop", (event) => {
             event.preventDefault();
             dropZone.classList.remove("kanban__dropzone--active");
 
             const columnElement = dropZone.closest(".kanban__column");
-            const columnId = Number(columnElement.dataset.id);
-
+            //const columnId = columnElement.dataset.id;
 
             const dropZonesInColumn = Array.from(columnElement.querySelectorAll(".kanban__dropzone"));
-
-            console.log("dropZoneInColumn : ", dropZonesInColumn, "columnElement : ", columnElement, "columnId : ", columnId);
-            
             const droppedIndex = dropZonesInColumn.indexOf(dropZone);
             console.log(droppedIndex);
 
-            const itemId = Number(event.dataTransfer.getData("text/plain"));
+            const itemId = event.dataTransfer.getData("text/plain");
             const droppedItemElement = document.querySelector(`[data-id="${itemId}"]`);
             const insertAfter = dropZone.parentElement.classList.contains("kanban__item") ? dropZone.parentElement : dropZone;
 
@@ -120,56 +195,67 @@ class DropZone {
                 return;
             }
 
-            console.log(insertAfter);
+            //console.log(insertAfter);
             insertAfter.after(droppedItemElement);
-            console.log(itemId);
+            //console.log(itemId);
             
-            //******DB에 저장
+            //소켓으로 보내준다 => ******DB에 저장
         })
-
         return dropZone;
     }
 }
 
 // map marker도 여기 같이 넣자
 class Item {
-    constructor(id, content){
-        const bottomDropZone = DropZone.createDropZone();
+    constructor(id, name, road_adr, x, y, map_link){
 
+        const bottomDropZone = DropZone.createDropZone();
         this.elements = {};
         this.elements.root = Item.createRoot();
-        this.elements.input = this.elements.root.querySelector(".kanban__item-input");
-
+        
+        this.elements.name = this.elements.root.querySelector(".kanban__item-name");
+        this.elements.road_adr = this.elements.root.querySelector(".kanban__item-road_adr");
+        this.elements.delBtn = this.elements.root.querySelector("button");
+        //this.elements.input = this.elements.root.querySelector(".kanban__item-input");
+        
+        this.elements.name.textContent = name;
+        this.elements.road_adr.textContent = road_adr;
+        
         this.elements.root.dataset.id = id;
-        this.elements.input.textContent = content;
-        this.content = content;
+        this.elements.root.dataset.x = x;
+        this.elements.root.dataset.y = y;
+        this.elements.root.dataset.map_link = map_link;
+
+    
+        //this.elements.input.textContent = content;
+        //this.content = content;
 
         this.elements.root.appendChild(bottomDropZone);
-
-        /*
-        const onBlur = () => {
-            const newContent = this.elements.input.textContent.trim();
-            console.log(this.content);
-            console.log(newContent);
-        }
-        */
-
-        this.elements.root.addEventListener("dblclick", () => {
-            const check = confirm("Are you sure you want to delete this item?");
+        
+        this.elements.delBtn.addEventListener("click", () => {
+            const check = confirm("");
 
             if (check){
-                fakeItems.splice(id - 1, 1); //DB에서 삭제
-                console.log(fakeItems);
+                /*
+                fakeItems2.find(element => element._id == id).place.forEach((placeItem) => {
+                });
+                //소켓으로 업데이트 보내줘야 함
+                fakeItems.splice(id, 1); //DB에서 삭제*******8
+                */
                 this.elements.root.parentElement.removeChild(this.elements.root); // 컬럼에서 삭제
             }
         });
+
         this.elements.root.addEventListener("dragstart", event => {
             event.dataTransfer.setData("text/plain", id);
         });
 
-        this.elements.input.addEventListener("drop", event => {
+        // 추후 수정 필요!!!!!!!!!!!!!!!!
+        this.elements.name.addEventListener("drop", event => {
             event.preventDefualt();
-
+        })
+        this.elements.road_adr.addEventListener("drop", event => {
+            event.preventDefualt();
         })
     }
 
@@ -179,7 +265,9 @@ class Item {
 
         return range.createContextualFragment(`
             <div class="kanban__item" draggable="true">
-                <div class="kanban__item-input"></div>
+                <div class="kanban__item-name"></div>
+                <div class="kanban__item-road_adr"></div>
+                <button>삭제</button>
             </div>
         `).children[0];
     }
@@ -190,45 +278,32 @@ class Item {
 
         const topDropZone = DropZone.createDropZone();
 
-
         //하위 element
 		this.elements = {};
 		this.elements.root = Column.createRoot();
 		this.elements.title = this.elements.root.querySelector(".kanban__column-title");
 		this.elements.items = this.elements.root.querySelector(".kanban__column-items");
-		//this.elements.addItem = this.elements.root.querySelector(".kanban__add-item");
         
         this.elements.root.dataset.id = id;
         this.elements.title.textContent = title;
         this.elements.items.appendChild(topDropZone);
 
-        /*
-        //작동 xx
-        this.elements.addItem.addEventListener("click", () => {
-            
-            const newItem = {id : fakeId++, content : ""};
-            this.renderItem(newItem);
-        });
-        */
-
-        // 각 컬럼 마다 아이템 불러옴
-
+        // 각 컬럼 id 값으로 아이템 불러옴 서버에서 받아야 함
         /*
 		KanbanAPI.getItems(id).forEach(item => {
 			this.renderItem(item);
 		});
         */ 
 
-        fakeItems[id-1]['items'].forEach((item) => {
-            this.renderItem(item);
-        })
+        //추후 수정할 필요 있음
+        fakeItems2.find(element => element._id == id).place.forEach((placeItem) => {
+            this.renderItem(placeItem);
+        });
     }
 
 	static createRoot() {
 		const range = document.createRange();
-
 		range.selectNode(document.body);
-
 		return range.createContextualFragment(`
 			<div class="kanban__column">
 				<div class="kanban__column-title"></div>
@@ -239,25 +314,34 @@ class Item {
 
     renderItem(data){
         //ToDo : create Item Instance
-        const item =  new Item(data.id, data.content);
+        const item = new Item(data._id, data.name, data.road_adr, data.x, data.y, data.map_link);
         this.elements.items.appendChild(item.elements.root);
     }
 }
 
 
  class Kanban {
-	constructor(root) {
+	constructor(root, dayPlanList) {
 		this.root = root;
-
-		Kanban.columns().forEach(column => {
-			const columnView = new Column(column.id, column.title);
-            console.log(columnView.elements.root);
-			this.root.appendChild(columnView.elements.root);
+		Kanban.columns(dayPlanList).forEach(column => {
+            const columnView = new Column(column.id, column.title);
+            this.root.appendChild(columnView.elements.root);
 		});
 	}
-    // 서버에서 day  column 받아와야 함 
-	static columns(dayPlanListColumsIds) {
-        
+    // 서버에서 day column 받아와야 함 
+	static columns(dayPlanList) {
+        console.log(dayPlanList);
+        const dayPlanListColumns = [];
+
+        dayPlanList.forEach((dayPlan, index) => {   
+            dayPlanListColumns.push({
+                id : dayPlan._id,
+                title : `Day ${index + 1}`
+            });
+        });
+
+        return dayPlanListColumns;
+        /*
 		return [
 			{
 				id: 1,
@@ -272,9 +356,11 @@ class Item {
 				title: "Day 3"
 			}
 		];
-	}
+        */
+    }
 }
 
-new Kanban(
-    document.querySelector(".kanban")
-);
+
+
+
+new Kanban( document.querySelector(".kanban"), fakeItems2);
