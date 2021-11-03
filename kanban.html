@@ -58,7 +58,6 @@
         
         <!--place api 사용한 장소 검색 리스트(키워드 검색)-->
     
-
         <div class="search-list">
             <form id="search-form">
                 <input type="text", name="search-input", placeholder="검색어를 입력하세요", required>
@@ -91,24 +90,25 @@
         <button id="popup">pop up</button>
                 
         <!--chatting으로 모든 챗박스 묶고, 추가 클래스로 개별 스타일 부여-->
-        <div class="chatting chat" id="chatArea">
+        <div class="chatting" id="chatArea">
 
             <div id="chatboxheader">
                 <button>➖</button>
             </div>
             <div class="chat-box">
             <!--
-                <div class="chat enter">
-                    오정환님이 입장하셨습니다.
+                <div class="chat system">
+                    <div class="chat-message"></div>
                 </div>
                 <div class="chat outgoing">
-                    오정환: ㅎㅇㅎㅇ
+                    <div class="chat-message"></div>
                 </div>
                 <div class="chat incoming">
-                    나 : ㅎㅇㅎㅇ
+                    <div class="chat-img"><img src="" alt="image_url"></div>
+                    <div class="chat-message"></div>
                 </div>
-                <div class="chat exit">
-                    오정환님이 퇴장하셨습니다.
+                <div class="chat system">
+                    <div class="chat-message"></div>
                 </div>
             -->
             </div>
@@ -119,7 +119,7 @@
                 </form>
             </div>
         </div>
-        -->
+        
 
     </main>
 </body>

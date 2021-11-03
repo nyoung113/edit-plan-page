@@ -1,33 +1,44 @@
 // chatting message object 
-const chatForm = document.querySelector(".chat form");
+const chatForm = document.querySelector(".chatting form");
 chatForm.addEventListener("submit", sendChattingMessage);
 
 function sendChattingMessage(event){
     event.preventDefault();
     const input = chatForm.querySelector("input");
-    //console.log(input.value);
 
-    chattingList.addMessage("", input.value, "incoming");
+
+    chattingList.addMessage("", input.value, "outgoing");
+    //서버로 보내기💨
     input.value = "";
 }
 
 // server side에서 전달 받을 때 사용할 함수
-function recieveChattingMessage(name, message){
-    chattingList.addMessage(name, message, "outgoing");
+function receiveChattingMessage(image_url, message){
+    chattingList.addMessage(image_url, message, "incoming");
+}
+
+function receiveSystemMessage(name, enter){
+    const message = (enter == true)? `${name}님이 입장하셨습니다` : `${name}님이 퇴장하셨습니다`;
+    chattingList.addMessage(name, message, "system");
 }
 
 class Message {
-    constructor(name, message, className){
+    constructor(image_url, message, className){
         this.elements = {};
         this.elements.root = Message.createRoot();
         this.elements.root.classList.add(className);
+        this.elements.message = this.elements.root.querySelector(".chat-message");
+        this.elements.message.textContent = message;
+        
+        if(className === "incoming"){
+            const imageDiv = document.createElement("div");
+            const image = document.createElement("img");
+            imageDiv.classList.add("chat-img");
+            image.src = image_url;
+            image.alt="image_url";
+            imageDiv.append(image);
 
-        if(className === "outgoing"){
-
-            this.elements.root = `${name} : ${message}`; 
-        }
-        else{
-            this.elements.root = `${message}`; 
+            this.elements.root.append(imageDiv);
         }
     }
 
@@ -35,7 +46,9 @@ class Message {
         const range = document.createRange();
 		range.selectNode(document.body);
 		return range.createContextualFragment(`
-			<div class="chat"></div>
+			<div class="chat">
+            <div class="chat-message"></div>
+            </div>
 		`).children[0];
     }
 }
@@ -45,13 +58,15 @@ class ChattingList {
         this.root = root;
     }
 
-    addMessage(name, message, className){
-        const msg = new Message(name, message, className);
+    addMessage(image_url, message, className){
+        const msg = new Message(image_url, message, className);
         this.root.append(msg.elements.root);
     }
 }
 
 const chattingList = new ChattingList(document.querySelector(".chat-box"));
+
+
 
 //chattng popup click
 const chattingPopup = document.querySelector("#popup");
@@ -59,13 +74,13 @@ const chattingPopup = document.querySelector("#popup");
 chattingPopup.addEventListener("click", showChatBox);
 
 function showChatBox(){
-    document.querySelector(".chat").style.display = "flex";
+    document.querySelector(".chatting").style.display = "flex";
     chattingPopup.style.display = "none";
 }
 
-document.querySelector(".chat button").addEventListener("click", showChatPopup);
+document.querySelector(".chatting button").addEventListener("click", showChatPopup);
 function showChatPopup(event){
     event.preventDefault();
     chattingPopup.style.display = "flex";
-    document.querySelector(".chat").style.display = "none";
+    document.querySelector(".chatting").style.display = "none";
 }
