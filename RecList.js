@@ -1,1 +1,2 @@
-//  추천 장소 class
+const recommandationList = document.createElement(".recommandation");
+

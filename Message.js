@@ -3,11 +3,6 @@ const chatForm = document.querySelector(".chatting form");
 
 //chatForm.querySelector("textarea").addEventListener();
 
-function textAreaKey(event){
-
-}
-
-
 chatForm.addEventListener("submit", sendChattingMessage);
 
 function sendChattingMessage(event){
