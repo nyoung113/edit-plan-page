@@ -1,13 +1,18 @@
 // chatting message object 
 const chatForm = document.querySelector(".chatting form");
+
+//chatForm.querySelector("textarea").addEventListener();
+
+function textAreaKey(event){
+
+}
+
+
 chatForm.addEventListener("submit", sendChattingMessage);
 
 function sendChattingMessage(event){
     event.preventDefault();
     const input = chatForm.querySelector("textarea");
-    //console.log(input.value);
-
-
     chattingList.addMessage("", input.value, "outgoing");
     //서버로 보내기💨
     input.value = "";
