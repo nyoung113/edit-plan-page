@@ -10,6 +10,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+        <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=7a8olp7fvf"></script>
         
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title> Edit | Sample </title>
@@ -28,6 +29,7 @@
         </div>
     </header>
     <main class="main-content">
+    
 
         <div class="recommandation">
             <button type="button" class="region-select">권역 선택</button>
@@ -38,94 +40,16 @@
             </div>
 
             <ul class="recommandation__list">
+                <!--
                 <li>
                     <img src="", alt="추천 장소">
                         <div>
-                            <span>관광지명</span>  <!--data 집어넣기-->
+                            <span>관광지명</span>
                             <button class="more-btn">더보기</button>
                             <p>대충설명</p>
                         </div>
                 </li>
-                <li>
-                    <img src="", alt="추천 장소">
-                        <div>
-                            <span>관광지명</span>
-                            <button class="more-btn">더보기</button>
-                            <p>대충설명</p>
-                        </div>
-                </li>  
-                <li>
-                    <img src="", alt="추천 장소">
-                        <div>
-                            <span>관광지명</span>
-                            <button class="more-btn">더보기</button>
-                            <p>대충설명</p>
-                        </div>
-                </li>  
-                <li>
-                    <img src="", alt="추천 장소">
-                        <div>
-                            <span>관광지명</span>
-                            <button class="more-btn">더보기</button>
-                            <p>대충설명</p>
-                        </div>
-                </li>  
-                <li>
-                    <img src="", alt="추천 장소">
-                        <div>
-                            <span>관광지명</span>
-                            <button class="more-btn">더보기</button>
-                            <p>대충설명</p>
-                        </div>
-                </li>  
-                <li>
-                    <img src="", alt="추천 장소">
-                        <div>
-                            <span>관광지명</span>
-                            <button class="more-btn">더보기</button>
-                            <p>대충설명</p>
-                        </div>
-                </li>  
-                <li>
-                    <img src="", alt="추천 장소">
-                        <div>
-                            <span>관광지명</span>
-                            <button class="more-btn">더보기</button>
-                            <p>대충설명</p>
-                        </div>
-                </li>  
-                <li>
-                    <img src="", alt="추천 장소">
-                        <div>
-                            <span>관광지명</span>
-                            <button class="more-btn">더보기</button>
-                            <p>대충설명</p>
-                        </div>
-                </li>  
-                <li>
-                    <img src="", alt="추천 장소">
-                        <div>
-                            <span>관광지명</span>
-                            <button class="more-btn">더보기</button>
-                            <p>대충설명</p>
-                        </div>
-                </li>  
-                <li>
-                    <img src="", alt="추천 장소">
-                        <div>
-                            <span>관광지명</span>
-                            <button class="more-btn">더보기</button>
-                            <p>대충설명</p>
-                        </div>
-                </li>  
-                <li>
-                    <img src="", alt="추천 장소">
-                        <div>
-                            <span>관광지명</span>
-                            <button class="more-btn">더보기</button>
-                            <p>대충설명</p>
-                        </div>
-                </li>  
+                -->
             </ul>
         </div>
         
@@ -146,6 +70,13 @@
             </ul>
         </div>
         <div id="map"></div>
+        <script>
+            const mapOptions = {
+            center : new naver.maps.LatLng(33.50088510909299, 126.52906251498592),
+            zoom : 10
+            };
+            const map = new naver.maps.Map(document.getElementById("map"), mapOptions);
+        </script>
 
         <div class="kanban">
             <!--
@@ -154,7 +85,7 @@
                     <div class="kanban__items">
                         <div class="kanban__item" draggable="true">
                             <div class="kanban__item-name">place 1</div>
-                            <div class="kanban__item-road_adr">도로명주소 1</div>
+                            <div class="kanban__item-road_adr">도로명주소 1</div></div>
                             <button>삭제</button>
                             <div class="kanban__dropzone"></div>
                         </div>                    
