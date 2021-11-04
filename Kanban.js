@@ -1,5 +1,5 @@
 
-import {createMapMarker, removeMapMarker} from "/Map.js";
+import {createMapMarker, removeMapMarker, mapPanToBound} from "/Map.js";
 const fakeItems2 = [
     {
     _id : "507f191e810c19729de860e1",
@@ -18,7 +18,7 @@ const fakeItems2 = [
             name : "place 2",
             road_adr : "도로명 주소2",
             x : "126.53001020252465",
-            y : "33.48137202695348",
+            y : "33.48437202695348",
             map_link : ""
         }
     ]},
@@ -31,7 +31,7 @@ const fakeItems2 = [
                 name : "place 3",
                 road_adr : "도로명 주소3",
                 x : "126.54001020252465",
-                y : "33.48137202695348",
+                y : "33.48137205695348",
                 map_link : ""
             },
             {   
@@ -52,7 +52,7 @@ const fakeItems2 = [
                     name : "place 5",
                     road_adr : "도로명 주소5",
                     x : "126.56001020252465",
-                    y : "33.48137202695348",
+                    y : "33.48337202695348",
                     map_link : ""
                 },
                 {   
@@ -60,7 +60,7 @@ const fakeItems2 = [
                     name : "place 6",
                     road_adr : "도로명 주소6",
                     x : "126.57001020252465",
-                    y : "33.48137202695348",
+                    y : "33.42337202695348",
                     map_link : ""
                 }
         ]}
@@ -179,7 +179,7 @@ class Item {
                 fakeItems2.find(element => element._id == id).place.forEach((placeItem) => {
                 });
                 //소켓으로 업데이트 보내줘야 함
-                fakeItems.splice(id, 1); //DB에서 삭제*******8
+                fakeItems.splice(id, 1); //DB에서 삭제*******
                 */
                 removeMapMarker(this.elements.marker);
                 this.elements.root.parentElement.removeChild(this.elements.root); // 컬럼에서 삭제
@@ -196,6 +196,10 @@ class Item {
         })
         this.elements.road_adr.addEventListener("drop", event => {
             event.preventDefualt();
+        })
+
+        this.elements.root.addEventListener("click", event => {
+            mapPanToBound(this.elements.root.dataset.x, this.elements.root.dataset.y);
         })
     }
 
