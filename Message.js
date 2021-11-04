@@ -1,5 +1,6 @@
 // chatting message object 
 const chatForm = document.querySelector(".chatting form");
+const chatBox = document.querySelector(".chat-box");
 
 //chatForm.querySelector("textarea").addEventListener();
 
@@ -8,6 +9,7 @@ chatForm.addEventListener("submit", sendChattingMessage);
 function sendChattingMessage(event){
     event.preventDefault();
     const input = chatForm.querySelector("textarea");
+    chatBox.scrollTop = chatBox.scrollHeight;
     chattingList.addMessage("", input.value, "outgoing");
     //서버로 보내기💨
     input.value = "";
@@ -16,11 +18,13 @@ function sendChattingMessage(event){
 // server side에서 전달 받을 때 사용할 함수
 function receiveChattingMessage(image_url, message){
     chattingList.addMessage(image_url, message, "incoming");
+    chatBox.scrollTop = chatBox.scrollHeight;
 }
 
 function receiveSystemMessage(name, enter){
     const message = (enter == true)? `${name}님이 입장하셨습니다` : `${name}님이 퇴장하셨습니다`;
     chattingList.addMessage(name, message, "system");
+    chatBox.scrollTop = chatBox.scrollHeight;
 }
 
 class Message {

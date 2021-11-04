@@ -70,13 +70,6 @@
             </ul>
         </div>
         <div id="map"></div>
-        <script>
-            const mapOptions = {
-            center : new naver.maps.LatLng(33.50088510909299, 126.52906251498592),
-            zoom : 10
-            };
-            const map = new naver.maps.Map(document.getElementById("map"), mapOptions);
-        </script>
 
         <div class="kanban">
             <!--
@@ -138,9 +131,10 @@
 
         </main>
     </body>
-    <script type="text/javascript" src="SearchList.js"></script>
-    <script type="text/javascript" src="Message.js"></script> 
-    <script type="text/javascript" src="Kanban.js"></script>
-    <script type="text/javascript" src="chat.js"></script>
-    <script type="text/javascript" src="textarea.js"></script>
+    <script type="module" src="SearchList.js"></script>
+    <script type="module" src="Message.js"></script> 
+    <script type="module" src="Kanban.js"></script>
+    <script type="module" src="chat.js"></script>
+    <script type="module" src="textarea.js"></script>
+    <script type="module" src="Map.js"></script>
 </html>
