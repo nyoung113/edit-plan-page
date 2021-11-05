@@ -211,7 +211,7 @@ class Item {
             <div class="kanban__item" draggable="true">
                 <div class="kanban__item-name"></div>
                 <div class="kanban__item-road_adr"></div>
-                <button>삭제</button>
+                <button><span class="material-icons">backspace</span></button>
             </div>
         `).children[0];
     }

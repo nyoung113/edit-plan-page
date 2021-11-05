@@ -6,10 +6,13 @@
         <link rel="stylesheet" href="main-content.css">
         <link rel="stylesheet" href="chatting.css">
         <link rel="stylesheet" href="frame.css">
+        <link rel="stylesheet" href="icon.css">
         <!--구글 웹폰트-->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
         <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=7a8olp7fvf"></script>
         
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,42 +20,46 @@
     </head>
 <body class="container">
     <header>
-        <div>
+        <div class="plan-title">
             여행 이름
         </div>
-        <div>
-            참여자1 참여자2
+        <div class="participant">
+            참여자:
+            <div><img src="userimg.jpg"></div>
+            <div><img src="userimg.jpg"></div>
+            <div><img src="userimg.jpg"></div>
+            <div><img src="userimg.jpg" class="notattend"></div>
         </div>
-        <div>
+        <div class="plan-date">
             출발일 : <span>2021-11-23</span>
             도착일 : <span>2021-11-25</span>
         </div>
     </header>
     <main class="main-content">
         <div class="recommandation">
-            <button type="button" class="region-select">권역 선택</button>
+            <button type="button" class="region-select"><span class="material-icons md-2">map</span>
+                권역 선택</button>
             <div class="recommandation__categories">
-                <div>관광</div>
-                <div>식당</div>
-                <div>카페</div>
+                <div><span class="material-icons">view_module</span>전체</div>
+                <div><span class="material-icons">landscape</span>관광</div>
+                <div><span class="material-icons">flatware</span>식당</div>
+                <div><span class="material-icons">local_cafe</span>카페</div>
             </div>
 
             <ul class="recommandation__list">
-                <!--
                 <li>
                     <img src="", alt="추천 장소">
-                    <div>
-                        <span>관광지명</span>
-                        <button class="more-btn"><span class="material-icons">open_in_new</span>더보기</button>
-                        <div class="wrap-star">
-                            <div class="star-rating">
-                                <span>star</span>
+                        <div>
+                            <span>관광지명</span>
+                            <button class="more-btn"><span class="material-icons">open_in_new</span>더보기</button>
+                            <div class="wrap-star">
+                                <div class="star-rating">
+                                    <span>star</span>
+                                </div>
                             </div>
+                            <span>'프로젝트'의 평가: </span><span>A</span>
                         </div>
-                        <span>'프로젝트'의 평가: </span><span>A</span>
-                    </div>
-                <li>
-                -->
+                </li>
             </ul>
         </div>
         
@@ -61,7 +68,10 @@
         <div class="search-list">
             <form id="search-form">
                 <input type="text", name="search-input", placeholder="검색어를 입력하세요", required>
-                <input type="submit", value = "검색" class="search-btn">
+                <button class="search-btn"><span class="material-icons">
+                    search
+                    </span>
+                    </button>
             </form>
             <ul>
                 <!--
@@ -91,7 +101,9 @@
             -->  
         </div>
         
-        <button id="popup"> 채팅</button>
+        <button id="popup"><span class="material-icons-outlined">
+            mode_comment
+            </span>채팅</button>
                 
         <!--chatting으로 모든 챗박스 묶고, 추가 클래스로 개별 스타일 부여-->
         <div class="chatting" id="chatArea">
@@ -109,13 +121,11 @@
                     <div class="chat-image">
                         <img src="userimg.jpg">
                     </div>
-                    <div class="chat-message">
-                        gdgd
+                    <div class="chat-message">gdgd
                     </div>
                 </div>
                 <div class="chat outgoing">
-                    <div class="chat-message">
-                        gdgd
+                    <div class="chat-message">gdgd
                     </div>
                 </div>
                 <div class="chat system">
@@ -126,7 +136,7 @@
             </div>
             <div class="send-box">
                 <form name="formname">
-                    <textarea type="text" name="chatting-input", class="chatting-input" id ="as"placeholder="메시지 전송하기", required></textarea>
+                    <textarea type="text" name="chatting-input", class="chatting-input" id ="form"placeholder="메시지 전송하기", required></textarea>
                     <input type="submit", value="전송" class="send-message">
                 </form>
             </div>
