@@ -263,8 +263,7 @@ class Item {
     }
 }
 
-
- class Kanban {
+export default class Kanban {
 	constructor(root, dayPlanList) {
 		this.root = root;
 		Kanban.columns(dayPlanList).forEach(column => {

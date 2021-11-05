@@ -239,13 +239,15 @@ class PlaceItem {
 
         this.elements.root = PlaceItem.createRoot();
         this.elements.title = this.elements.root.querySelector("span");
-        this.elements.roadAdr = this.elements.root.querySelector("p");
-        this.elements.moreButton = this.elements.root.querySelector("button");
-        
+		this.elements.roadAdr = this.elements.root.querySelector("p");
+
         this.elements.title.textContent = place_name;
         this.elements.roadAdr.textContent = road_address_name;
         this.elements.root.dataset.x = x;
         this.elements.root.dataset.y = y;
+
+
+		this.elements.moreButton = this.elements.root.querySelector("button");
         this.elements.moreButton.textContent = "더보기"
         this.elements.moreButton.classList = "more-btn";
 
@@ -281,7 +283,6 @@ class PlaceItem {
                 map_link : place_url,
             }));
         });
-  
     }   
 
     static createRoot(){
@@ -297,7 +298,7 @@ class PlaceItem {
     }
 }
 
-class SearchList {
+export default class SearchList {
         constructor(root, placeList){
         this.root = root;
 
@@ -308,7 +309,8 @@ class SearchList {
     renderItem(place){
                 //서버에서 받아서 render
         //ToDo : create Place items Instance
-        const placeItem = new PlaceItem(place.place_name, 
+        const placeItem = new PlaceItem(
+			place.place_name, 
             place.road_address_name, 
             place.place_url,
             place.x, place.y);

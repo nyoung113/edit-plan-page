@@ -1,4 +1,4 @@
-// chatting message object 
+
 const chatForm = document.querySelector(".chatting form");
 const chatBox = document.querySelector(".chat-box");
 
@@ -58,7 +58,7 @@ class Message {
     }
 }
 
-class ChattingList {
+export default class ChattingList {
     constructor(root){
         this.root = root;
     }
@@ -70,8 +70,6 @@ class ChattingList {
 }
 
 const chattingList = new ChattingList(document.querySelector(".chat-box"));
-
-
 
 //chattng popup click
 const chattingPopup = document.querySelector("#popup");
