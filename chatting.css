@@ -7,10 +7,10 @@
   position: absolute;
   border: none;
   width: 8rem;
-  height: 4rem;
+  height: 3rem;
   border-radius: 20px;
   left: 90%;
-  top: 85%;
+  top: 88%;
   background-color: rgb(191, 255, 247);
   z-index: 9999;
 }
