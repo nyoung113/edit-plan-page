@@ -1,95 +1,5 @@
-/*
-const fakeItems = [    
-    {
-        items : [
-            {
-                id : 1,
-                content : "place 1"
-            },
 
-            {
-                id : 2,
-                content : "place 2"
-            },
-
-            {
-                id : 3,
-                content : "place 3"
-            }
-        ]
-    },
-
-    {
-        items : [
-            {
-                id : 4,
-                content : "place 4"
-            },
-
-            {
-                id : 5,
-                content : "place 5"
-            }
-        ]
-    },
-
-    {
-        items : [
-            {
-                id : 6,
-                content : "place 6"
-            }
-        ]
-    }
-
-];
-
-
-let fakeId = 7;
-const dayPlanListColumsIds = 3;
-*/
-
-/*
-const totplanSchema = new mongoose.Schema({
-    title: {type: String, unique: true},
-    admin: {
-        _id: mongoose.Schema.Types.ObjectId,
-        name: String
-    },
-    participants: [{
-        _id: mongoose.Schema.Types.ObjectId,
-        name: String
-    }],
-    day_plan: [{
-       date: {type : Date, required : true}, 
-       place: [{
-           name: String,
-           road_adr: String,
-           // img 추가할건지 판단
-           x : Number,
-           y : Number,
-           map_link: String
-       }]
-    }
-    ]
-})
-*/
-
-/*
-    day_plan: [{
-       date: {type :Date, required : true}, 
-       place: [{
-           name: String,
-           road_adr: String,
-           // img 추가할건지 판단
-           x : Number,
-           y : Number,
-           map_link: String
-       }]
-    }
-    ]
-*/
-
+import {createMapMarker, removeMapMarker, mapPanToBound} from "/Map.js";
 const fakeItems2 = [
     {
     _id : "507f191e810c19729de860e1",
@@ -107,8 +17,8 @@ const fakeItems2 = [
             _id : "5bf142459b72e12b2b1b2c12",
             name : "place 2",
             road_adr : "도로명 주소2",
-            x : "126.52001020252465",
-            y : "33.48137202695348",
+            x : "126.53001020252465",
+            y : "33.48437202695348",
             map_link : ""
         }
     ]},
@@ -120,15 +30,15 @@ const fakeItems2 = [
                 _id : "5bf142459b72e12b2b1b2c13",
                 name : "place 3",
                 road_adr : "도로명 주소3",
-                x : "126.52001020252465",
-                y : "33.48137202695348",
+                x : "126.54001020252465",
+                y : "33.48137205695348",
                 map_link : ""
             },
             {   
                 _id : "5bf142459b72e12b2b1b2c14",
                 name : "place 4",
                 road_adr : "도로명 주소4",
-                x : "126.52001020252465",
+                x : "126.55001020252465",
                 y : "33.48137202695348",
                 map_link : ""
             }
@@ -141,16 +51,16 @@ const fakeItems2 = [
                     _id : "5bf142459b72e12b2b1b2c15",
                     name : "place 5",
                     road_adr : "도로명 주소5",
-                    x : "126.52001020252465",
-                    y : "33.48137202695348",
+                    x : "126.56001020252465",
+                    y : "33.48337202695348",
                     map_link : ""
                 },
                 {   
                     _id : "5bf142459b72e12b2b1b2c16",
                     name : "place 6",
                     road_adr : "도로명 주소6",
-                    x : "126.52001020252465",
-                    y : "33.48137202695348",
+                    x : "126.57001020252465",
+                    y : "33.42337202695348",
                     map_link : ""
                 }
         ]}
@@ -248,9 +158,12 @@ class Item {
         this.elements.road_adr.textContent = road_adr;
         
         this.elements.root.dataset.id = id;
-        this.elements.root.dataset.x = x;
-        this.elements.root.dataset.y = y;
+        this.elements.root.dataset.x = x; // 경도
+        this.elements.root.dataset.y = y; // 위도
         this.elements.root.dataset.map_link = map_link;
+        
+        this.elements.marker = createMapMarker(x, y);
+        console.log(this.elements.marker);
 
     
         //this.elements.input.textContent = content;
@@ -259,15 +172,16 @@ class Item {
         this.elements.root.appendChild(bottomDropZone);
         
         this.elements.delBtn.addEventListener("click", () => {
-            const check = confirm("");
+            const check = confirm("삭제하시겠습니까?");
 
             if (check){
                 /*
                 fakeItems2.find(element => element._id == id).place.forEach((placeItem) => {
                 });
                 //소켓으로 업데이트 보내줘야 함
-                fakeItems.splice(id, 1); //DB에서 삭제*******8
+                fakeItems.splice(id, 1); //DB에서 삭제*******
                 */
+                removeMapMarker(this.elements.marker);
                 this.elements.root.parentElement.removeChild(this.elements.root); // 컬럼에서 삭제
             }
         });
@@ -282,6 +196,10 @@ class Item {
         })
         this.elements.road_adr.addEventListener("drop", event => {
             event.preventDefualt();
+        })
+
+        this.elements.root.addEventListener("click", event => {
+            mapPanToBound(this.elements.root.dataset.x, this.elements.root.dataset.y);
         })
     }
 
@@ -345,8 +263,7 @@ class Item {
     }
 }
 
-
- class Kanban {
+export default class Kanban {
 	constructor(root, dayPlanList) {
 		this.root = root;
 		Kanban.columns(dayPlanList).forEach(column => {
@@ -367,26 +284,8 @@ class Item {
         });
 
         return dayPlanListColumns;
-        /*
-		return [
-			{
-				id: 1,
-				title: "Day 1"
-			},
-			{
-				id: 2,
-				title: "Day 2"
-			},
-			{
-				id: 3,
-				title: "Day 3"
-			}
-		];
-        */
     }
 }
-
-
 
 
 new Kanban( document.querySelector(".kanban"), fakeItems2);
